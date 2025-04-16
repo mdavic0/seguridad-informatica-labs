@@ -78,10 +78,10 @@ Una vez importada:
 
 # Instalación de Metasploitable en VirtualBox
 
-## 📥 Paso 1: Descargar Metasploitable
+### Paso 1: Descargar Metasploitable
 
 1. Ir al sitio oficial del proyecto:  
-   [https://sourceforge.net/projects/metasploitable/](https://sourceforge.net/projects/metasploitable/)
+   [https://www.rapid7.com/products/metasploit/metasploitable/](https://www.rapid7.com/products/metasploit/metasploitable/)
 
 2. Descargar el archivo `.zip` de **Metasploitable 2**.
 
@@ -89,7 +89,7 @@ Una vez importada:
 
 ---
 
-## 💻 Paso 2: Crear una nueva máquina virtual en VirtualBox
+### Paso 2: Crear una nueva máquina virtual en VirtualBox
 
 1. Abrir **VirtualBox** y hacer clic en **"Nueva"**.
 
@@ -106,20 +106,7 @@ Una vez importada:
 
 ---
 
-# 🌐 Configurar red interna (para comunicarse con Kali)
-
-1. Con la VM apagada, ir a **Configuración > Red**.
-
-2. En **Adaptador 1**:
-   - Activar: ✔️ "Habilitar adaptador de red"
-   - Modo: `Red interna`
-   - Nombre de red: `lab-hacking` (o el nombre que uses también en Kali)
-
-3. Repetir lo mismo en la VM de **Kali Linux** para que se comuniquen entre sí.
-
----
-
-# ▶️Iniciar la VM
+### Paso 3: Iniciar la VM
 
 1. Iniciar la VM de **Metasploitable** desde VirtualBox.
 
@@ -132,9 +119,35 @@ Una vez importada:
 
 ---
 
-# 🧪 Verificar conectividad desde Kali (opcional)
+# Configurar red interna (para comunicarse con Kali)
+
+1. Con ambas VMs apagadas, ir a **Configuración > Red**.
+
+2. En **Adaptador 1**:
+   - Activar: ✔️ "Habilitar adaptador de red"
+   - Modo: `Red interna`
+   - Nombre de red: `lab-hacking` (o el nombre que uses también en Kali)
+
+3. Repetir lo mismo en la VM de **Kali Linux** para que se comuniquen entre sí.
+
+4. Configurar direcciones en ambas vm:
+   - En kali ejecutar:
+     ```
+     sudo nano /etc/network/interfaces
+     ```
+     Y agregar lo siguiente
+     ```
+     auto eth0
+     iface eth0 inet static
+        address 192.168.100.10
+        netmask 255.255.255.0
+     ```
+   - En Metasploitable realiazar lo mismo pero cambiando el addres a ```192.168.100.20```
+---
+
+# Verificar conectividad desde Kali 
 
 Desde la VM de **Kali Linux**, ejecutar:
 
 ```bash
-ping <IP_de_Metasploitable>
+ping 192.168.100.20
